@@ -22,8 +22,20 @@ fn main() {
         //打印用户的猜测
         println!("您的猜测是{guess}");
         //接下来把String类型转变成数字类型
-        let guess: u32 = guess.trim().parse().expect("转变错误！");  //这里的.expect
+        //let guess: u32 = guess.trim().parse().expect("转变错误！");  //这里的.expect
                                                                  //应该是对错误后的处理
+
+        let guess: u32 = match guess.trim().parse(){
+            Ok(num) => num,
+            Err(_) => continue,
+            //我们将exepct调用换成match语句，将从遇到问题就崩溃转换为处理错误。
+            //parse返回的是一个Result类型，而Result是一个拥有Ok或Err成员的枚举。
+            //这里用的match表达式，和之前处理cmp方法返回的Orderding时用的一样。
+            //如果成功将字符串转换成一个数字，就会返回结果Ok
+            //反之返回Err
+            //这个Ok值与match第一个分支的模式相匹配，该分支对应的动作返回Ok值中的数字num，最后如愿变成新创建的guess变量
+
+        };
         //这里新建了一个guess的函数将之前的guess遮蔽。
         //将新变量绑到guess.trim().parse()表达式上。表达式中的guess指的是包含输入的字符串类型guess变量。
         //String实例的trim方法会去除字符串开头和结尾的空白字符，我们必须执行这个方法在能将String类型和u32比较，因为用户必须用enter键才能将read_line返回并输入他们的猜想，这会在字符串里新增一个换行（newline）符，trim方法会消除\n或者\r\n ，\n代表“换行”；\r代表“回车”

@@ -25,6 +25,8 @@ fn main() {
         //let guess: u32 = guess.trim().parse().expect("转变错误！");  //这里的.expect
                                                                  //应该是对错误后的处理
 
+
+    
         let guess: u32 = match guess.trim().parse(){
             Ok(num) => num,
             Err(_) => continue,

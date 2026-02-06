@@ -1,0 +1,25 @@
+use rand::Rng;
+use std::cmp::Ordering;
+use std::io;
+fn main() {
+    //生成一个随机数
+    let secret_number = rand::thread_rng().gen_range(1..=100);
+    //获取用户的输入
+    let mut guess = String::new();
+    io::stdin().read_line(&mut guess).expect("错误！");
+    //转成数字
+    //还要去掉回车键
+    //trim方法用于去掉回车键
+    //parse方法用于将字符串转换为其他类型。
+    //let mut guess:u32 = guess.trim().parse().expect("错误2");
+    //将expect换成match，也就是将处理也不是直接崩溃
+    //parse的枚举成员有Err和Ok
+    let mut guess: u32 = match guess.trim().parse() {
+        //如果成功转变为一个数字，parse会返回一个Ok的枚举成员，用match来看下一步干什么
+        Ok(num) => num,
+        //返回Ok值中的num，num变成guess变量
+        Err(_) => continue,
+        //_是一个通配符值，本例中用来匹配所有Err值，不管其中有何种信息，
+        //continue表示让loop进入下一次循环
+    };
+}
